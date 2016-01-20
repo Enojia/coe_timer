@@ -59,7 +59,7 @@ namespace coe_timer
         private void Form1_Load(object sender, EventArgs e)
         {
             Choices command = new Choices();
-            command.Add("timer");
+            command.Add(new string[] { "reset", "start", "stop" });
             GrammarBuilder gBuilder = new GrammarBuilder();
             gBuilder.Append(command);
             Grammar grammar = new Grammar(gBuilder);
@@ -71,8 +71,10 @@ namespace coe_timer
 
         private void SREngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            if(e.Result.Text == "timer")
+            if(e.Result.Text == "reset" || e.Result.Text == "start")
                 Reset(timer1);
+            if (e.Result.Text == "stop")
+                timer1.Stop();
         }
 
         private void button3_Click(object sender, EventArgs e)
